@@ -18,6 +18,13 @@ module Rulers
 
       [200, {"Content-Type" => "text/html"},
         [text]]
+    rescue
+      error_msg
+    end
+
+    def error_msg
+      [500, {'Content-Type' => 'text/html'},
+        ['error la']]
     end
   end
 
