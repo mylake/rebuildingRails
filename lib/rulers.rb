@@ -1,5 +1,3 @@
-require 'pry'
-
 require 'rulers/version'
 require 'rulers/routing'
 require 'rulers/util'
@@ -25,13 +23,13 @@ module Rulers
 
       [200, {"Content-Type" => "text/html"},
         [text]]
-    rescue
-      error_msg
+    rescue => e
+      error_msg e
     end
 
-    def error_msg
+    def error_msg(e)
       [500, {'Content-Type' => 'text/html'},
-        ['error la']]
+        [e.to_s]]
     end
   end
 
