@@ -22,9 +22,17 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency 'test-unit'
+  spec.add_development_dependency 'rack-test'
   spec.add_development_dependency 'rspec-given'
+  spec.add_development_dependency 'pry-rescue'
+  spec.add_development_dependency 'pry-stack_explorer'
+  spec.add_development_dependency 'pry-byebug'
+  spec.add_development_dependency 'pry'
 
   spec.add_runtime_dependency "rest-client", '~> 0'
   spec.add_runtime_dependency "rack", '~> 1.6'
   spec.add_runtime_dependency 'erubis'
+  spec.add_runtime_dependency 'pry'
+
 end
