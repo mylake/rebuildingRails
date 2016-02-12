@@ -35,16 +35,26 @@ module Rulers
       end
 
       def self.create(attrs)
-        hash = {}
-        hash['submitter'] = attrs['submitter'] || ''
-        hash['quote'] = attrs['quote'] || ''
-        hash['attribution'] = attrs['attribution'] || ''
+        hash = self.assign_attrs(attrs)
 
         files = Dir['db/quotes/*.json']
         names = files.map{ |f| f.split('/')[-1] }
         highest = names.map { |b| b.to_i }.max
         id = highest + 1
 
+        self.save(id, hash)
+      end
+
+      def self.update(id, params)
+        object = self.find(id)
+        raise 'update error' if object.nil?
+        object.merge!(params)
+
+        hash = self.assign_attrs(object)
+        self.save(id, hash)
+      end
+
+      def self.save(id, hash)
         File.open("db/quotes/#{id}.json", 'w') do |f|
           f.write <<TEMPLATE
           {
@@ -54,8 +64,15 @@ module Rulers
           }
 TEMPLATE
           end
-
         FileModel.new "db/quotes/#{id}.json"
+      end
+
+      def self.assign_attrs(attrs)
+        hash = {}
+        hash['submitter'] = attrs['submitter'] || ''
+        hash['quote'] = attrs['quote'] || ''
+        hash['attribution'] = attrs['attribution'] || ''
+        hash
       end
 
     end
