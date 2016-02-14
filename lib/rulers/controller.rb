@@ -18,6 +18,20 @@ module Rulers
       request.params
     end
 
+    def response(text, status = 200, header = {})
+      raise 'Already responded!' if @response
+      a = [text].flatten
+      @response = Rack::Response.new(a, status, header)
+    end
+
+    def get_response
+      @response
+    end
+
+    def render_response(*args)
+      response(render(*args))
+    end
+
     def env
       @env
     end
